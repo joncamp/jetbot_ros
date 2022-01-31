@@ -5,5 +5,5 @@ source docker/tag.sh
 
 REGISTRY="dustynv"
 
-sudo docker pull $REGISTRY/jetbot_ros:eloquent-$TAG
+sudo docker pull $REGISTRY/jetbot_ros:galactic-$TAG
 sudo docker pull $REGISTRY/jetbot_ros:foxy-$TAG

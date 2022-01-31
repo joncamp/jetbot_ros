@@ -42,7 +42,9 @@ setup(
             'nav_model = jetbot_ros.nav_model:main',
             'motors_nvidia = jetbot_ros.motors_nvidia:main',
             'motors_waveshare = jetbot_ros.motors_waveshare:main',
+            'motors_sparkfun = jetbot_ros.motors_sparkfun:main',
             'oled_ssd1306 = jetbot_ros.oled_ssd1306:main',
+            'oled_sparkfun = jetbot_ros.oled_sparkfun:main',
         ],
     },
 )

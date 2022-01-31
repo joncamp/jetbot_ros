@@ -24,5 +24,5 @@ push()
 	echo "done pushing image $remote_container"
 }
 
-push "jetbot_ros:eloquent-$TAG"
+push "jetbot_ros:galactic-$TAG"
 push "jetbot_ros:foxy-$TAG"

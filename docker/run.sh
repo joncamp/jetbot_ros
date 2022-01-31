@@ -22,7 +22,7 @@ show_help() {
     echo " "
     echo "   --help                       Show this help text and quit"
     echo " "
-    echo "   --ros ROS_DISTRO  ROS distro to use:  eloquent, foxy (default is foxy)"
+    echo "   --ros ROS_DISTRO  ROS distro to use:  galactic, foxy (default is foxy)"
     echo "                     This option sets the container image to use."
     echo " "
     echo "   -c, --container DOCKER_IMAGE  Manually specify the name/tag of the Docker"
