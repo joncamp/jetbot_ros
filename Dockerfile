@@ -120,11 +120,11 @@ ENV PYTHONPATH="${JETBOT_ROOT}:${PYTHONPATH}"
 #
 # ros_deep_learning package
 #
-RUN source ${ROS_ENVIRONMENT} && \
-    cd ${WORKSPACE_ROOT}/src && \
-    git clone https://github.com/dusty-nv/ros_deep_learning && \
-    cd ../ && \
-    colcon build --symlink-install --event-handlers console_direct+
+#RUN source ${ROS_ENVIRONMENT} && \
+#    cd ${WORKSPACE_ROOT}/src && \
+#    git clone https://github.com/dusty-nv/ros_deep_learning && \
+#    cd ../ && \
+#    colcon build --symlink-install --event-handlers console_direct+
 
 
 #
