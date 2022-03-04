@@ -11,30 +11,36 @@ class OLEDControllerSparkFun(OLEDController):
     OLED controller node for SparkFun Micro OLED Breakout (used on the SparkFun JetBot)
     @see oled.py for the base class to impelement different OLED controllers.
     """
-    user_text = None
-
     def __init__(self):
         super().__init__()
         
         # 68x64 display with hardware I2C:
         self.display = qwiic_micro_oled.QwiicMicroOled()
-        
-        self.display.begin()
-        self.display.clear(self.display.PAGE)
-        self.display.clear(self.display.ALL)
 
-        # Set Font
-        self.display.set_font_type(0)
-        # Could replace line spacing with disp2.getFontHeight, but doesn't scale properly
+        if not self.display.connected:
+            raise NotImplementedError('SparkFun controller failed to initialize!')
+        else:
+            self.display.begin()
+            self.display.clear(self.display.ALL)
+            self.display.clear(self.display.PAGE)
 
-        self.display.display()
+            # Set Font
+            self.display.set_font_type(0)
+
+            self.display.print("OLED Initialized!")
+            self.get_logger().info("OLED Initialized!")
+
+            self.display.display()
         
     def render(self, text):
         # Draw a black filled box to clear the image.
+        self.display.clear(self.display.ALL)
         self.display.clear(self.display.PAGE)
+        self.display.set_cursor(0, 0)
 
         # Draw text
-        self.display.print(text)
+        for idx, txt in enumerate(text):
+            self.display.print(txt)
 
         # Present the image
         self.display.display()

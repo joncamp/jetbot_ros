@@ -15,6 +15,8 @@ class MotorController(Node):
     def __init__(self):
         super().__init__('motors', namespace='jetbot')
         
+        self.get_logger().info(f"Motor Controller initializing...")
+        self.get_logger().info(f"cmd_vel listener initializing...")
         self.sub = self.create_subscription(Twist, 'cmd_vel', self.twist_listener, 10)
         
         self.declare_parameter('left_trim', 0.0)
@@ -69,6 +71,8 @@ class MotorController(Node):
     def twist_listener(self, msg):
         x = msg.linear.x
         rot = msg.angular.z
+
+        self.get_logger().info(f"twist_listener({x}, {rot})")
         
         if x == self.last_x and rot == self.last_rot:
             return

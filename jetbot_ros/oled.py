@@ -37,7 +37,7 @@ class OLEDController(Node):
         ]
   
         self.render(text)
-        self.get_logger().info(f"{self.get_cpu_usage()}  {text[2]}  {text[3]}")
+        #self.get_logger().info(f"{self.get_cpu_usage()}  {text[2]}  {text[3]}")
         
     @staticmethod
     def get_ip_address(interface):

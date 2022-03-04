@@ -1,9 +1,10 @@
 import rclpy
 
 from rclpy.node import Node
+from rclpy.parameter import Parameter
 from jetbot_ros.motors import MotorController
 
-import qwiic
+import qwiic_scmd
 
 class MotorControllerSparkFun(MotorController):
     """
@@ -14,27 +15,23 @@ class MotorControllerSparkFun(MotorController):
     MOTOR_RIGHT = 1     # right motor ID
     MAX_SPEED = 255
     
-    def __init__(self):
+    def __init__(self, parameter_overrides=[
+            Parameter('max_rpm', value=140),                # https://www.sparkfun.com/products/13302
+            Parameter('wheel_separation', value=0.1016),    # 4 inches in meters    
+            Parameter('wheel_diameter', value=0.06604)      # 2.6 inches in meters 
+        ]):
         super().__init__()
-
-        self.declare_parameter('max_rpm', 140)              # https://www.sparkfun.com/products/13302
-        self.declare_parameter('wheel_separation', 0.1016)  # 4 inches in meters
-        self.declare_parameter('wheel_diameter', 0.06604)   # 2.6 inches in meters
         
-        # Scan for devices on I2C bus
-        addresses = qwiic.scan()
+        self.motors = qwiic_scmd.QwiicScmd()
 
-        if 93 in addresses:
-            # get motor objects from driver
-            self.motors = qwiic.QwiicScmd()
-        else:
-            raise KeyError('Qwiic Motor Controller not found on i2c bus')
-
+        self.get_logger().info("SCMD Motors Initialized!")
 
     def set_speed(self, left, right):
         """
         Sets the motor speeds between [-255, 255]
         """
+        self.get_logger().info(f"set_speed({left}, {right})")
+
         self.motors.set_drive(self.MOTOR_LEFT, 0, self._scale_speed(left))
         self.motors.set_drive(self.MOTOR_RIGHT, 0, self._scale_speed(right))
         
