@@ -13,6 +13,8 @@ class MotorControllerSparkFun(MotorController):
     """
     MOTOR_LEFT = 0      # left motor ID
     MOTOR_RIGHT = 1     # right motor ID
+    DIRECTION_FORWARD = 0
+    DIRECTION_BACKWARD = 1
     MAX_SPEED = 255
     
     def __init__(self, parameter_overrides=[
@@ -32,8 +34,11 @@ class MotorControllerSparkFun(MotorController):
         """
         self.get_logger().info(f"set_speed({left}, {right})")
 
-        self.motors.set_drive(self.MOTOR_LEFT, 0, self._scale_speed(left))
-        self.motors.set_drive(self.MOTOR_RIGHT, 0, self._scale_speed(right))
+        direction_left = DIRECTION_FORARD if left > 0 else DIRECTION_BACKWARD
+        direction_right = DIRECTION_FORARD if right > 0 else DIRECTION_BACKWARD
+
+        self.motors.set_drive(self.MOTOR_LEFT, direction_left, self._scale_speed(left))
+        self.motors.set_drive(self.MOTOR_RIGHT, direction_right, self._scale_speed(right))
         
         self.motors.enable()
 
@@ -41,8 +46,8 @@ class MotorControllerSparkFun(MotorController):
         """
         Sets the motor speeds to 0 and then stops 
         """
-        self.motors.set_drive(self.MOTOR_LEFT,0,0)
-        self.motors.set_drive(self.MOTOR_RIGHT,0,0)
+        self.motors.set_drive(self.MOTOR_LEFT,DIRECTION_FORARD,0)
+        self.motors.set_drive(self.MOTOR_RIGHT,DIRECTION_FORARD,0)
         self.motors.disable()
 
     def _scale_speed(self, value):
